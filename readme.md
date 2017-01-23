@@ -20,10 +20,34 @@ heroku addons:create heroku-postgresql:hobby-dev --app $app_name
 
 **2. Add Heroku remote**
 
+```sh
+heroku git:remote --app $app_name
+```
+
 **3. Set Config Parameters**
+
+To operate correctly you need to set `APP_KEY`, `APP_LOG` the following prams:
+
+```sh
+heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
+heroku config:set APP_LOG=errorlog
+```
+
+Additionally, to keep the app in development mode and throwing errors set the following:
+
+```sh
+heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
+```
 
 **4. Deploy to Heroku**
 
+```sh
+ git push heroku master
+```
+
+## Additional Notes
+
+Depending on what you're doing, you may need to set the application up to trust the Heroku load balancer. See [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer) 
 
 ## About Laravel
 

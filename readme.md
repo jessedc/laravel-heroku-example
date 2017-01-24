@@ -58,6 +58,17 @@ This project is set to track the development branch of laravel in anticipation o
 `composer update` every day until it's released to keep up to date. At such time as it's releaesd, composer.json should
 be updated to point to the 5.4 branch.
 
+**Running a worker process**
+
+This []Stack Overflow Answer](http://stackoverflow.com/a/38443082/184130) shows a simple addition to the Procfile can run your worker
+in another process.
+
+Using `--daemon` is not necessary in Laravel 5.4 and setting up your queues on redit (or using the DB) is not part of this project at this point.
+
+```
+queue: php artisan queue:work redis --sleep=3 --tries=3
+```
+
 ---
 
 

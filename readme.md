@@ -60,7 +60,7 @@ be updated to point to the 5.4 branch.
 
 **Running a worker process**
 
-This []Stack Overflow Answer](http://stackoverflow.com/a/38443082/184130) shows a simple addition to the Procfile can run your worker
+This [Stack Overflow Answer](http://stackoverflow.com/a/38443082/184130) shows a simple addition to the Procfile can run your worker
 in another process.
 
 Using `--daemon` is not necessary in Laravel 5.4 and setting up your queues on redit (or using the DB) is not part of this project at this point.

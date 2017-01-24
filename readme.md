@@ -47,7 +47,19 @@ heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
 
 ## Additional Notes
 
-Depending on what you're doing, you may need to set the application up to trust the Heroku load balancer. See [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer) 
+**Trust the load balancer**
+
+Depending on what you're doing, you may need to set the application up to trust the Heroku load balancer. See [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer).
+
+ 
+**Updating**
+
+This project is set to track the development branch of laravel in anticipation of 5.4 release. It's worth running 
+`composer update` every day until it's released to keep up to date. At such time as it's releaesd, composer.json should
+be updated to point to the 5.4 branch.
+
+---
+
 
 ## About Laravel
 

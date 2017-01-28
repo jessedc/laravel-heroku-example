@@ -12,6 +12,7 @@ This project is designed to be easily deployed on heroku. It contains the follow
 
 ```sh
 cp .env.example .env
+composer install
 php artisan key:generate
 touch database/database.sqlite
 php artisan migrate

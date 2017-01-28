@@ -6,6 +6,23 @@ This project is designed to be easily deployed on heroku. It contains the follow
 - Procfile with a web process.
 - Default Postgres config reading heroku-postgres `DATABASE_URL`.
 
+## Running Locally
+
+**1. Database, app key, .env**
+
+```sh
+cp .env.example .env
+php artisan key:generate
+touch database/database.sqlite
+php artisan migrate
+```
+
+**2. Run**
+
+```sh
+php artisan serve
+```
+
 ## Deploying to Heroku
 
 **1. Create a Heroku App with postgres addon**

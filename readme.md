@@ -68,13 +68,6 @@ heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
 
 Depending on what you're doing, you may need to set the application up to trust the Heroku load balancer. See [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer).
 
- 
-**Updating**
-
-This project is set to track the development branch of laravel in anticipation of 5.4 release. It's worth running 
-`composer update` every day until it's released to keep up to date. At such time as it's releaesd, composer.json should
-be updated to point to the 5.4 branch.
-
 **Running a worker process**
 
 This [Stack Overflow Answer](http://stackoverflow.com/a/38443082/184130) shows a simple addition to the Procfile can run your worker

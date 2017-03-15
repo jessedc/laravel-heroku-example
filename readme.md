@@ -1,14 +1,17 @@
 
-## Heroku-Laravel
+## Heroku-Laravel-Example
 
 This project is designed to be easily deployed on heroku. It contains the following configuration:
 
 - Procfile with a web process.
-- Default Postgres config reading heroku-postgres `DATABASE_URL`.
+- Database configuration Defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable.
+- Configured to [trust the Heroku Load balancers](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer). 
 
-## Running Locally
+## Local Development
 
 **1. Database, app key, .env**
+
+Clone this repository and run the following commands:
 
 ```sh
 cp .env.example .env
@@ -67,14 +70,14 @@ heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
 
 **Trust the load balancer**
 
-Depending on what you're doing, you may need to set the application up to trust the Heroku load balancer. See [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer).
+This project is setup to trust the heroku load balancers. This will help with routing and url generation. For more information see [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer).
 
 **Running a worker process**
 
 This [Stack Overflow Answer](http://stackoverflow.com/a/38443082/184130) shows a simple addition to the Procfile can run your worker
 in another process.
 
-Using `--daemon` is not necessary in Laravel 5.4 and setting up your queues on redit (or using the DB) is not part of this project at this point.
+Using `--daemon` is not necessary in Laravel 5.4 and setting up your queues on redis (or using the DB) is not covered here.
 
 ```
 queue: php artisan queue:work redis --sleep=3 --tries=3

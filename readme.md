@@ -1,11 +1,17 @@
 
 ## Heroku-Laravel-Example
 
-This project is designed to be easily deployed on heroku. It contains the following configuration:
+This is boilerplate Laravel 5.5 project similar to what the `laravel new`, `composer create-project` projects create.
 
-- Procfile with a web process.
-- Database configuration Defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable.
-- Configured to [trust the Heroku Load balancers](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer). 
+This project can be used as is as a shortcut to deploying Laravel 5.5 on heroku, or used as a guide.
+
+## Key Heroku Configurations
+
+- Procfile defining a web process using nginx and a worker process for running queues
+- Database configuration defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable.
+- Redis configuration setup to use heroku-redis `REDIS_URL` environment variable
+- Failed job database configuration defaults to postgres
+- Laravel 5.5 TrustedProxy middleware configured to trust Heroku load balancers correctly  
 
 ## Local Development
 
@@ -29,17 +35,18 @@ php artisan serve
 
 ## Deploying to Heroku
 
-**1. Create a Heroku App with postgres addon**
+**1. Create a Heroku App **
 
 Set your own app name on line 1 below
 
 ```sh
-app_name=one-eighty-test
+app_name=heroku-laravel55-test-app
 heroku apps:create $app_name
 heroku addons:create heroku-postgresql:hobby-dev --app $app_name
+heroku addons:create heroku-redis:hobby-dev --app $app_name
 ```
 
-**2. Add Heroku remote**
+**2. Add Heroku git remote**
 
 ```sh
 heroku git:remote --app $app_name
@@ -47,14 +54,20 @@ heroku git:remote --app $app_name
 
 **3. Set Config Parameters**
 
-To operate correctly you need to set `APP_KEY`, `APP_LOG` the following prams:
+To operate correctly you need to set `APP_KEY`:
 
 ```sh
 heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
-heroku config:set APP_LOG=errorlog
+heroku config:set APP_LOG=errorlog 
 ```
 
-Additionally, to keep the app in development mode and throwing errors set the following:
+Configure additional parameters to utilise redis
+
+```sh
+heroku config:set QUEUE_DRIVER=redis SESSION_DRIVER=redis CACHE_DRIVER=redis
+```
+
+Optionally set your app's environment to development
 
 ```sh
 heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
@@ -66,53 +79,7 @@ heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
  git push heroku master
 ```
 
-## Additional Notes
-
-**Trust the load balancer**
-
-This project is setup to trust the heroku load balancers. This will help with routing and url generation. For more information see [here](https://devcenter.heroku.com/articles/getting-started-with-laravel#trusting-the-load-balancer).
-
-**Running a worker process**
-
-This [Stack Overflow Answer](http://stackoverflow.com/a/38443082/184130) shows a simple addition to the Procfile can run your worker
-in another process.
-
-Using `--daemon` is not necessary in Laravel 5.4 and setting up your queues on redis (or using the DB) is not covered here.
-
-```
-queue: php artisan queue:work redis --sleep=3 --tries=3
-```
-
 ---
-
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
 ## License
 

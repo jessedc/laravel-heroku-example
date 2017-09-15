@@ -1,14 +1,14 @@
 
-## Heroku-Laravel-Example
+## Heroku Laravel Example
 
-This is boilerplate Laravel 5.5 project similar to what the `laravel new`, `composer create-project` projects create.
+This is boilerplate Laravel 5.5 project similar to what the `laravel new`, `composer create-project` commands create.
 
 This project can be used as is as a shortcut to deploying Laravel 5.5 on heroku, or used as a guide.
 
-## Key Heroku Configurations
+## Heroku Specific Configurations
 
 - Procfile defining a web process using nginx and a worker process for running queues
-- Database configuration defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable.
+- Database configuration defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable
 - Redis configuration setup to use heroku-redis `REDIS_URL` environment variable
 - Failed job database configuration defaults to postgres
 - Laravel 5.5 TrustedProxy middleware configured to trust Heroku load balancers correctly  
@@ -35,12 +35,17 @@ php artisan serve
 
 ## Deploying to Heroku
 
-**1. Create a Heroku App **
+**1. Create a Heroku App**
 
-Set your own app name on line 1 below
+Setup an app name
 
 ```sh
 app_name=heroku-laravel55-test-app
+```
+
+Create a heroku app
+
+```sh
 heroku apps:create $app_name
 heroku addons:create heroku-postgresql:hobby-dev --app $app_name
 heroku addons:create heroku-redis:hobby-dev --app $app_name
@@ -52,7 +57,7 @@ heroku addons:create heroku-redis:hobby-dev --app $app_name
 heroku git:remote --app $app_name
 ```
 
-**3. Set Config Parameters**
+**3. Set config parameters**
 
 To operate correctly you need to set `APP_KEY`:
 

@@ -11,7 +11,12 @@ This project can be used as is as a shortcut to deploying Laravel 5.5 on heroku,
 - Database configuration defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable
 - Redis configuration setup to use heroku-redis `REDIS_URL` environment variable
 - Failed job database configuration defaults to postgres
+- A heroku app.json and post-deployment script for use with Heroku Review Apps
 - Laravel 5.5 TrustedProxy middleware configured to trust Heroku load balancers correctly  
+
+## Additional Configurations
+
+- App is Pinned to PHP 7.1 (`~7.1.0`)
 
 ## Local Development
 

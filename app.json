@@ -1,0 +1,58 @@
+{
+  "name": "laravel-heroku-example",
+  "scripts": {
+    "postdeploy": "php artisan postdeploy:heroku"
+  },
+  "stack": "heroku-16",
+  "env": {
+    "APP_DEBUG": {
+      "required": false
+    },
+    "APP_ENV": {
+      "required": false
+    },
+    "APP_KEY": {
+      "required": true
+    },
+    "APP_LOG": {
+      "value": "errorlog"
+    },
+    "APP_LOG_LEVEL": {
+      "value": "debug"
+    },
+    "APP_URL": {
+      "required": true
+    },
+    "CACHE_DRIVER": {
+      "required": true
+    },
+    "QUEUE_DRIVER": {
+      "required": true
+    },
+    "SESSION_DRIVER": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "hobby"
+    },
+    "worker": {
+      "quantity": 1,
+      "size": "hobby"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev",
+    "heroku-redis:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

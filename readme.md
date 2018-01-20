@@ -54,6 +54,8 @@ Create a heroku app
 heroku apps:create $app_name
 heroku addons:create heroku-postgresql:hobby-dev --app $app_name
 heroku addons:create heroku-redis:hobby-dev --app $app_name
+heroku buildpacks:add heroku/php
+heroku buildpacks:add heroku/nodejs
 ```
 
 **2. Add Heroku git remote**

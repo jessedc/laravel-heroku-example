@@ -1,22 +1,25 @@
 
 ## Heroku Laravel Example
 
-This is boilerplate Laravel 5.5 project similar to what the `laravel new`, `composer create-project` commands create.
+This is boilerplate Laravel 5.6 project similar to what the `laravel new` or `composer create-project` commands create.
 
-This project can be used as is as a shortcut to deploying Laravel 5.5 on heroku, or used as a guide.
+This project can be used as is as a shortcut to deploying a Laravel 5.6 app on heroku, or used as a guide.
 
-## Heroku Specific Configurations
+## Heroku Specific Configuration
 
-- Procfile defining a web process using nginx and a worker process for running queues
-- Database configuration defaults to use Postgres using heroku-postgres `DATABASE_URL` environment variable
+- [Procfile](https://devcenter.heroku.com/articles/procfile) defining a web process using nginx and a worker process for running queues
+- Database configuration defaults set to use Postgres and to parse heroku-postgres `DATABASE_URL` environment variable
 - Redis configuration setup to use heroku-redis `REDIS_URL` environment variable
-- Failed job database configuration defaults to postgres
-- A heroku app.json and post-deployment script for use with Heroku Review Apps
-- Laravel 5.5 TrustedProxy middleware configured to trust Heroku load balancers correctly  
+- Failed job database configuration defaulting to postgres
+- A heroku app.json and post-deployment script (`php artisan postdeploy:heroku`)for use with Heroku Review Apps
+- TrustedProxies middleware configured to trust Heroku load balancers correctly
+- npm task named "postinstall" that is run during heroku deployments
+- Heroku specific logging configuration set as the default.  
 
-## Additional Configurations
+## Additional Configuration
 
-- App is Pinned to PHP 7.1 (`~7.1.0`)
+- Pinned to PHP 7.1 (`~7.1.0`)
+- Setup with bootstrap scaffolding (`php artisan preset bootstrap`)
 
 ## Local Development
 
@@ -24,71 +27,78 @@ This project can be used as is as a shortcut to deploying Laravel 5.5 on heroku,
 
 Clone this repository and run the following commands:
 
-```sh
-cp .env.example .env
+```bash
 composer install
-php artisan key:generate
+cp .env.example .env
 touch database/database.sqlite
+php artisan key:generate
 php artisan migrate
+npm install 
+npm run dev
 ```
 
 **2. Run**
 
-```sh
+```bash
 php artisan serve
 ```
 
 ## Deploying to Heroku
 
-**1. Create a Heroku App**
+**1. Create a Heroku app**
 
-Setup an app name
+Create an app name
 
-```sh
-app_name=heroku-laravel55-test-app
+```bash
+app_name=heroku-laravel56-test-app
 ```
 
-Create a heroku app
+Create Heroku app
 
-```sh
+```bash
 heroku apps:create $app_name
 heroku addons:create heroku-postgresql:hobby-dev --app $app_name
 heroku addons:create heroku-redis:hobby-dev --app $app_name
-heroku buildpacks:add heroku/php
-heroku buildpacks:add heroku/nodejs
+heroku buildpacks:add heroku/php --app $app_name
+heroku buildpacks:add heroku/nodejs --app $app_name
 ```
 
 **2. Add Heroku git remote**
 
-```sh
+```bash
 heroku git:remote --app $app_name
 ```
 
 **3. Set config parameters**
 
-To operate correctly you need to set `APP_KEY`:
+For Laravel to operate correctly you need to set `APP_KEY`:
 
-```sh
-heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
-heroku config:set APP_LOG=errorlog 
+```bash
+heroku config:set --app $app_name APP_KEY=$(php artisan --no-ansi key:generate --show)
 ```
 
-Configure additional parameters to utilise redis
+Set Queues, sessions and cache to use redis
 
-```sh
-heroku config:set QUEUE_DRIVER=redis SESSION_DRIVER=redis CACHE_DRIVER=redis
+```bash
+heroku config:set --app $app_name QUEUE_DRIVER=redis SESSION_DRIVER=redis CACHE_DRIVER=redis
 ```
 
 Optionally set your app's environment to development
 
-```sh
-heroku config:set APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
+```bash
+heroku config:set --app $app_name APP_ENV=development APP_DEBUG=true APP_LOG_LEVEL=debug
 ```
 
 **4. Deploy to Heroku**
 
-```sh
+```bash
  git push heroku master
+```
+
+**5. Run migrations**
+
+```bash
+heroku run -a $app_name php artisan postdeploy:heroku
 ```
 
 ---

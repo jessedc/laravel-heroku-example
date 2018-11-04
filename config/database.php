@@ -37,6 +37,7 @@ return [
             'driver' => 'sqlite',
             'database' => env('DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
         'mysql' => [
@@ -46,9 +47,11 @@ return [
             'database' => env('DB_DATABASE', 'forge'),
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            'prefix_indexes' => true,
             'strict' => true,
             'engine' => null,
         ],
@@ -62,6 +65,7 @@ return [
             'password' => parse_url(getenv('DATABASE_URL'), PHP_URL_PASS),
             'charset' => 'utf8',
             'prefix' => '',
+            'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
         ],
@@ -100,7 +104,14 @@ return [
             'host' => parse_url(env('REDIS_URL'), PHP_URL_HOST),
             'password' => parse_url(env('REDIS_URL'), PHP_URL_PASS),
             'port' => parse_url(env('REDIS_URL'), PHP_URL_PORT),
-            'database' => 0,
+            'database' => env('REDIS_DB', 0),
+        ],
+
+        'cache' => [
+            'host' => parse_url(env('REDIS_URL'), PHP_URL_HOST),
+            'password' => parse_url(env('REDIS_URL'), PHP_URL_PASS),
+            'port' => parse_url(env('REDIS_URL'), PHP_URL_PORT),
+            'database' => env('REDIS_CACHE_DB', 1),
         ],
 
     ],

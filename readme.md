@@ -1,7 +1,7 @@
 
 ## Heroku Laravel Example
 
-This is boilerplate Laravel 5.6 project similar to what the `laravel new` or `composer create-project` commands create.
+This is boilerplate Laravel 5.7 project similar to what the `laravel new` or `composer create-project` commands create.
 
 This project can be used as is as a shortcut to deploying a Laravel 5.6 app on heroku, or used as a guide.
 
@@ -18,7 +18,7 @@ This project can be used as is as a shortcut to deploying a Laravel 5.6 app on h
 
 ## Additional Configuration
 
-- Pinned to PHP 7.1 (`~7.1.0`)
+- Pinned to PHP 7.2 (`~7.2.0`)
 - Setup with bootstrap scaffolding (`php artisan preset bootstrap`)
 
 ## Local Development
@@ -50,7 +50,7 @@ php artisan serve
 Create an app name
 
 ```bash
-app_name=heroku-laravel56-test-app
+app_name=heroku-laravel57-test-app
 ```
 
 Create Heroku app
@@ -80,7 +80,7 @@ heroku config:set --app $app_name APP_KEY=$(php artisan --no-ansi key:generate -
 Set Queues, sessions and cache to use redis
 
 ```bash
-heroku config:set --app $app_name QUEUE_DRIVER=redis SESSION_DRIVER=redis CACHE_DRIVER=redis
+heroku config:set --app $app_name QUEUE_CONNECTION=redis SESSION_DRIVER=redis CACHE_DRIVER=redis
 ```
 
 Optionally set your app's environment to development
